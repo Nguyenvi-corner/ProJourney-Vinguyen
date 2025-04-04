@@ -1,321 +1,329 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Tag, Briefcase, Users, Book, Phone, Mail, Linkedin } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
+import {Briefcase, Book, Linkedin, Mail, Phone, Tag, Folder, GraduationCap} from "lucide-react";
+import {cn} from "@/lib/utils";
 
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      delayChildren: 0.3,
-      staggerChildren: 0.2,
-    },
+const experiences = [
+  {
+    title: <span className="text-blue-900 font-semibold">🚀 Cofast Network</span>,
+    position: 'Customer Success Executive',
+    duration: 'May 2024 – Present',
+    description: `- Managed end-to-end customer success operations, ensuring high levels of satisfaction and process improvement.
+    - Collaborated with cross-functional teams to enhance customer experience and streamline operational processes.
+    - Designed and implemented SOPs to standardize processes across international logistics services.
+    - Contributed to building Cofast Platform by working on platform moderation, UI/UX design, coding, and marketing.`
   },
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
+  {
+    title: <span className="text-blue-900 font-semibold">Freightzen Logistics Vietnam Limited</span>,
+    position: 'Operation Manager',
+    duration: 'Dec, 2021 - May, 2024',
+    description: `<span class="font-bold">Operations Management:</span>
+    - Oversee and manage day-to-day freight forwarding operations for both air and ocean shipments, covering import, export, and cross-trade.
+    - Develop and implement SOPs to enhance operational efficiency and quality.
+    - Monitor and optimize workflows to ensure timely and accurate shipment processing.
+    - Manage vendor relationships, including carriers, shipping lines, and other third-party providers, to negotiate optimal rates and service agreements.
+    - Supervise the documentation process, ensuring all paperwork complies with local and international trade regulations.
+    
+    <span class="font-bold">Customer Service Excellence:</span>
+    - Act as the primary escalation point for customer inquiries, issues, and complaints, providing swift resolutions to maintain client satisfaction.
+    - Lead the customer service team to deliver exceptional service, ensuring all inquiries and requests are handled professionally and promptly.
+    - Build and maintain strong client relationships, providing regular updates and proactively addressing client needs.
+    
+    <span class="font-bold">Team Leadership and Development:</span>
+    - Recruit, train, and mentor operations and customer service staff to build a high-performing team.
+    - Set performance targets and KPIs, conducting evaluations to ensure objectives are met.
+    
+    <span class="font-bold">Strategic Contribution:</span>
+    - Collaborate with senior management to develop and execute strategic plans for operational improvements and business expansion.
+    - Identify opportunities to enhance service offerings, improve operational efficiency, and maximize profitability.`
   },
-};
+  {
+    title: <span className="text-blue-900 font-semibold">Ceva Logistics Vietnam Co., Ltd</span>,
+    position: 'Tender & Pricing Management',
+    duration: 'Jul, 2019 - May, 2021',
+    description: `<span class="font-bold">Air & Ocean Tender Management:</span>
+    - Analyze and manage bids, working together with all stakeholders in the process to prepare, finalize and deliver within required timescales.
+    - Engage Products, country and Global bid teams, ensuring all customer requirements adherence and complience with the internal bid processes set up.
+    - Ensure Global/Regions strategic approach to all bids are aligned.
+    - Work along the consultants team to gather intelligence and research all necessary information that can be instrumental to bid success.
+    - Track all bids progress through the pipeline cycle from receipt of RFIs/RFQs to win/loss of bids.
+    - To support impelentation team during implementation phase in order to ensure satisfactory delivery of rate agreements.
+    <span class="font-bold">Pricing Management:</span>
+    - To be primary contact point for all overseas quotation request.
+    - To keep follow up with oversea pricing desk and/or BD to update quotation status and customers respond.
+    - To analyze all quotation requests to pridict the customer’s need trend.`
+  },
+  {
+    title: <span className="text-blue-900 font-semibold">DB Schenker Vietnam Co., Ltd</span>,
+    position: 'Assistant to Director Airfreight Vietnam',
+    duration: 'Apr, 2016 - Jun, 2019',
+    description: `• Assist Head of Airfreight in implementing the activities assigned within the organization.
+    • Give support in all meetings as required.
+    • Retrieve information and feedback needed from the department.
+    • The key contact for all matters related to IATA.
+    • Communicate with department managers for preparing report on daily, weekly, monthly basic.`
+  },
+  {
+    title: <span className="text-blue-900 font-semibold">UTi Worldwide Viet Nam Co., Ltd</span>,
+    position: 'Key Account Manager',
+    duration: 'Apr, 2011 - Mar, 2016',
+    description: `<span class="font-bold">Account Development:</span>
+    - Develop comprehensive strategies to expand services within accounts.
+    - Collaborate with customers to understand their needs and create custom solutions.
+    - Identify key influencers and build trusted advisor relationships with decision-makers.
+    - Analyze client business operations, identify growth opportunities, and develop account strategies.
+    - Maximize cross-selling opportunities and communicate account plans and forecasts to management.
+    - Follow the company’s solution selling process to drive revenue and profitability.
+    <span class="font-bold">Account Management:</span>
+    - Own all aspects of account relationships, acting as the primary point of contact.
+    - Proactively assess business changes and their impact on the company.
+    - Identify risks and develop mitigation plans, escalating unresolved issues as needed.
+    - Work closely with Operations teams to ensure high-quality service delivery.
+    - Manage KPIs through regular business reviews and implement corrective actions for service failures.
+    - Develop and maintain strong client relationships, identifying opportunities for further business growth.
+    <span class="font-bold">Team Management:</span>
+    - Lead and coordinate Operations teams (Airfreight, Ocean Freight, Trade Services) and third-party vendors to meet KPIs.
+    - Provide clear direction, resolve issues, and motivate teams to deliver exceptional service.
+    - Oversee dry runs, clarify SOPs, and assist in the escalation of unresolved issues.
+    - Support team performance by monitoring progress, reviewing trends, and preparing for surges.`
+  },
+  {
+    title: <span className="text-blue-900 font-semibold">UTi Worldwide Viet Nam Co., Ltd</span>,
+    position: 'Sea Freight Coordinator',
+    duration: 'Nov, 2007 - Mar, 2011',
+    description: `
+    - Handle shipments and booking request from nominated & free hand customers.
+    - Follow shipping instructions from sales department, destinations & customers
+    - Liaise with contracted carriers for smooth handling of export cargo
+    - Liaise with sup-contractor for doing customs clearance.
+    - Follow the working instructions & SOP to fulfill their job properly
+    - Coordinate with oversea for smoothly handle shipment.
+    - Satisfy customers, do daily work with highest performance, respect and match company KPI of Debit.
+    - Resolve, Report, Record complaints in professional manner.
+    Additional tasks:
+    - Contacting carrier to have non-contracted rate.
+    - Responsible for:Quoting to network / Tender (medium) / RFQ and ad-hoc quote for sale.`
+  }
+];
 
-// --- Helper Components ---
-
-const SectionTitle = ({ title }: { title: string }) => (
-  <motion.h2
-    variants={itemVariants}
-    className="text-3xl font-bold text-blue-900 mb-4 flex items-center"
-  >
-    {/* You can replace Tag with a more relevant icon if needed */}
-    <Tag className="mr-2 h-6 w-6" />
-    {title}
-  </motion.h2>
-);
-
-const SkillBadge = ({ skill }: { skill: string }) => (
-    <Badge
-        className={cn(
-            "m-1 bg-blue-500 text-white hover:bg-blue-600 transition-colors",
-            "px-3 py-1.5 rounded-full text-sm font-medium shadow-md"
-        )}
-    >
-        {skill}
-    </Badge>
-);
-
-const ExperienceCard = ({
-  title,
-  company,
-  dates,
-  description,
-}: {
-  title: string;
-  company: string;
-  dates: string;
-  description: string[];
-}) => (
-  <motion.div variants={itemVariants} className="mb-6 p-6 bg-white rounded-lg shadow-md">
-    <h3 className="text-xl font-semibold text-gray-800 flex items-center">
-      <Briefcase className="mr-2 h-5 w-5" />
-      {title}
-    </h3>
-    <p className="text-sm text-gray-600">{company} - {dates}</p>
-    <ul className="list-disc list-inside mt-2 text-gray-700 space-y-1">
-      {description.map((item, index) => (
-        <li key={index}>{item}</li>
-      ))}
-    </ul>
-  </motion.div>
-);
-
-const EducationCard = ({
-    degree,
-    institution,
-    dates
-}: {
-    degree: string,
-    institution: string,
-    dates: string
-}) => (
-    <motion.div variants={itemVariants} className="mb-4 p-4 bg-white rounded-lg shadow-md">
-        <h3 className="text-lg font-semibold text-gray-800 flex items-center">
-            <Book className="mr-2 h-5 w-5" />
-            {degree}
-        </h3>
-        <p className="text-sm text-gray-600">{institution} - {dates}</p>
-    </motion.div>
-);
-
-const ContactInfo = () => (
-    <motion.div variants={itemVariants} className="space-y-2">
-        <h3 className="text-lg font-semibold text-gray-800">Contact</h3>
-        <p className="text-gray-700 flex items-center">
-            <Phone className="mr-2 h-4 w-4" /> +84 919794991
-        </p>
-        <p className="text-gray-700 flex items-center">
-            <Mail className="mr-2 h-4 w-4" /> vinguuyensong@gmail.com
-        </p>
-        <p className="text-gray-700 flex items-center">
-            <Linkedin className="mr-2 h-4 w-4" />
-            <a
-                href="https://www.linkedin.com/in/vi-nguyen-055051106"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-            >
-                LinkedIn Profile
-            </a>
-        </p>
-    </motion.div>
-);
-
-// --- Main Component ---
-
-const ProfessionalProfilePage = () => {
+const ProfessionalExperience = () => {
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="bg-gray-100 min-h-screen p-8"
-    >
-      <div className="max-w-4xl mx-auto space-y-8">
-        {/* Introduction Section */}
-        <motion.div variants={itemVariants} className="text-center">
-          <h1 className="text-4xl font-bold text-blue-900">Nguyen Song Quynh Vi</h1>
-          <p className="text-xl text-gray-700 mt-2">Logistics & Freight Forwarding Professional</p>
-          <p className="text-lg text-gray-600 mt-4">
-            Experienced logistics leader with 20+ years specializing in operations, pricing strategy, and procurement.
-            Proven track record in managing end-to-end freight forwarding processes, optimizing vendor relationships,
-            and developing cost-effective solutions. Expertise in streamlining operations, enhancing efficiency,
-            and ensuring strategic pricing. Passionate about driving operational improvements and contributing to
-            the success of global supply chains.
-          </p>
+    <div className="my-10">
+      <h2 className="text-2xl font-bold mb-6 text-blue-900 flex items-center">
+        <Briefcase className="mr-2 h-6 w-6"/>
+        Professional Experience
+      </h2>
+      {experiences.map((experience, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: index * 0.1 }}
+          className="mb-8 p-6 bg-white rounded-2xl shadow-md border border-white/10"
+        >
+          <h3 className="text-xl font-semibold text-blue-900">{experience.title}</h3>
+          <p className="text-sm text-blue-900">{experience.position} | {experience.duration}</p>
+          <p className="mt-4 text-base text-gray-700 whitespace-pre-line" dangerouslySetInnerHTML={{ __html: experience.description }}></p>
         </motion.div>
-
-        {/* Core Competencies Section */}
-        <section>
-          <SectionTitle title="Core Competencies" />
-          <motion.div variants={itemVariants} className="flex flex-wrap mt-2">
-            {['International Freight Operations', 'Contract Logistics & Distribution', 'SOP Design & Implementation', 'Vendor Management & Procurement', 'Pricing Strategy & Tender Management', 'Customer Success & Relationship Management', 'Team Leadership & Staff Training', 'Cross-functional Collaboration'].map((skill) => (
-              <SkillBadge key={skill} skill={skill} />
-            ))}
-          </motion.div>
-        </section>
-
-        {/* Professional Experience Section */}
-        <section>
-          <SectionTitle title="Professional Experience" />
-          <div className="space-y-6">
-            <ExperienceCard
-              title="Customer Success Executive"
-              company="Cofast Network Co., Ltd"
-              dates="May 2024 - Present"
-              description={[
-                'Managed end-to-end customer success operations, ensuring high levels of satisfaction and process improvement.',
-                'Collaborated with cross-functional teams to enhance customer experience and streamline operational processes.',
-                'Designed and implemented SOPs to standardize processes across international logistics services.',
-                'Contributed to building Cofast Platform by working on platform moderation, UI/UX design, coding, and marketing.',
-              ]}
-            />
-            <ExperienceCard
-                title="Operation Manager"
-                company="Freightzen Logistics Vietnam Limited"
-                dates="Dec, 2021 - May, 2024"
-                description={[
-                    "Oversee and manage day-to-day freight forwarding operations for both air and ocean shipments, covering import, export, and cross-trade.",
-                    "Develop and implement Standard Operating Procedures (SOPs) to enhance operational efficiency and quality.",
-                    "Monitor and optimize workflows to ensure timely and accurate shipment processing.",
-                    "Manage vendor relationships, including carriers, shipping lines, and other third-party providers, to negotiate optimal rates and service agreements.",
-                    "Supervise the documentation process, ensuring all paperwork complies with local and international trade regulations.",
-                    "Act as the primary escalation point for customer inquiries, issues, and complaints, providing swift resolutions to maintain client satisfaction.",
-                    "Lead the customer service team to deliver exceptional service, ensuring all inquiries and requests are handled professionally and promptly.",
-                    "Build and maintain strong client relationships, providing regular updates and proactively addressing client needs.",
-                    "Conduct regular feedback sessions with customers to identify areas for improvement and implement corrective measures.",
-                    "Recruit, train, and mentor operations and customer service staff to build a high-performing team.",
-                    "Set performance targets and Key Performance Indicators (KPIs) for team members, conducting regular evaluations to ensure objectives are met.",
-                    "Foster a positive work environment that encourages collaboration, innovation, and continuous improvement.",
-                    "Collaborate with senior management to develop and execute strategic plans for operational improvements and business expansion.",
-                    "Identify opportunities to enhance service offerings, improve operational efficiency, and maximize profitability."
-                ]}
-            />
-             <ExperienceCard
-                title="Tender & Pricing Management"
-                company="Ceva Logistics Vietnam Co., Ltd"
-                dates="Jul, 2019 - May, 2021"
-                description={[
-                    "Analyze and manage bids, working together with all stakeholders in the process to prepare, finalize and deliver within required timescales.",
-                    "Engage Products, country and Global bid teams, ensuring all customer requirements adherence and complience with the internal bid processes set up.",
-                    "Ensure Global/Regions strategic approach to all bids are aligned.",
-                    "Work along the consultants team to gather intelligence and research all necessary information that can be instrumental to bid success.",
-                    "Track all bids progress through the pipeline cycle from receipt of RFIs/RFQs to win/loss of bids.",
-                    "To support impelentation team during implementation phase in order to ensure satisfactory delivery of rate agreements.",
-                    "To be primary contact point for all overseas quotation request.",
-                    "To keep follow up with oversea pricing desk and/or BD to update quotation status and customers respond.",
-                    "To analyze all quotation requests to pridict the customer's need trend."
-                ]}
-            />
-            <ExperienceCard
-                title="Assistant to Director Airfreight Vietnam"
-                company="DB Schenker Vietnam Co., Ltd"
-                dates="Apr,2016 - Jun, 2019"
-                description:=[
-                    "Assist Head of Airfreight in implementing the activities assigned within the organization.",
-                    "Give support in all meetings as required.",
-                    "Retrieve information and feedback needed from the department.",
-                    "The key contact for all matters related to IATA.",
-                    "Communicate with department managers for preparing report on daily, weekly, monthly basic."
-                ]
-            />
-            <ExperienceCard
-                title="Key Account Manager"
-                company="UTi Worldwide Viet Nam Co., Ltd"
-                dates="Apr, 2011 - Mar, 2016"
-                description:=[
-                    "Develop comprehensive strategies to expand services within accounts.",
-                    "Collaborate with customers to understand their needs and create custom solutions.",
-                    "Identify key influencers and build trusted advisor relationships with decision-makers.",
-                    "Analyze client business operations, identify growth opportunities, and develop account strategies.",
-                    "Maximize cross-selling opportunities and communicate account plans and forecasts to management.",
-                    "Follow the company's solution selling process to drive revenue and profitability.",
-                    "Own all aspects of account relationships, acting as the primary point of contact.",
-                    "Proactively assess business changes and their impact on the company.",
-                    "Identify risks and develop mitigation plans, escalating unresolved issues as needed.",
-                    "Work closely with Operations teams to ensure high-quality service delivery.",
-                    "Manage KPIs through regular business reviews and implement corrective actions for service failures.",
-                    "Develop and maintain strong client relationships, identifying opportunities for further business growth.",
-                    "Lead and coordinate Operations teams (Airfreight, Ocean Freight, Trade Services) and third-party vendors to meet KPIs.",
-                    "Provide clear direction, resolve issues, and motivate teams to deliver exceptional service.",
-                    "Oversee dry runs, clarify SOPs, and assist in the escalation of unresolved issues.",
-                    "Support team performance by monitoring progress, reviewing trends, and preparing for surges.",
-                ]
-            />
-             <ExperienceCard
-                title="Sea Freight Coordinator"
-                company="UTi Worldwide Viet Nam Co., Ltd"
-                dates="Nov, 2007 - Mar, 2011"
-                description:=[
-                    "Handle shipments and booking request from nominated & free hand customers.",
-                    "Follow shipping instructions from sales department, destinations & customers",
-                    "Liaise with contracted carriers for smooth handling of export cargo",
-                    "Liaise with sup-contractor for doing customs clearance.",
-                    "Follow the working instructions & SOP to fulfill their job properly",
-                    "Coordinate with oversea for smoothly handle shipment.",
-                    "Satisfy customers, do daily work with highest performance, respect and match company KPI of Debit.",
-                    "Resolve, Report, Record complaints in professional manner.",
-                    "Contacting carrier to have non-contracted rate.",
-                    "Responsible for: Quoting to network / Tender (medium) / RFQ and ad-hoc quote for sale."
-                ]
-            />
-          </div>
-        </section>
-
-        {/* Projects Section */}
-        <section>
-            <SectionTitle title="Projects"/>
-            <div className="space-y-4">
-                <motion.div variants={itemVariants} className="bg-white p-4 rounded-lg shadow-md">
-                    <h4 className="font-semibold text-gray-800">Cosmetics Distribution Warehouse Development</h4>
-                    <p className="text-gray-700 text-sm">
-                        Collaborated with warehouse suppliers to successfully establish a dedicated distribution
-                        warehouse for a major cosmetics client. Managed logistics operations to ensure seamless distribution to retail stores across
-                        Vietnam.
-                    </p>
-                </motion.div>
-                 <motion.div variants={itemVariants} className="bg-white p-4 rounded-lg shadow-md">
-                    <h4 className="font-semibold text-gray-800">Garment Bonded & Non-Bonded Warehouse Establishment</h4>
-                     <p className="text-gray-700 text-sm">
-                        Led the establishment of a 5,000 sqm bonded and non-bonded warehouse for a garment
-                        client, encompassing both raw materials and finished goods. Oversaw end-to-end operations, ensuring efficient handling, storage, and distribution.
-                     </p>
-                 </motion.div>
-                  <motion.div variants={itemVariants} className="bg-white p-4 rounded-lg shadow-md">
-                      <h4 className="font-semibold text-gray-800">FMS System Implementation & Transition</h4>
-                      <p className="text-gray-700 text-sm">
-                        Participated in the design, development, and migration of the Freight Management System
-                        (FMS) to enhance operational efficiency. Collaborated with cross-functional teams to ensure smooth transition and optimization of
-                        logistics processes.
-                      </p>
-                  </motion.div>
-            </div>
-        </section>
-
-        {/* Education & Certifications Section */}
-        <section>
-          <SectionTitle title="Education & Certifications" />
-          <div className="space-y-4">
-            <EducationCard
-                degree="Bachelor of Economics of Sea Transport"
-                institution="Hochiminh City University of Transport"
-                dates="2002-2005"
-            />
-             <motion.div variants={itemVariants} className="bg-white p-4 rounded-lg shadow-md">
-                <h4 className="font-semibold text-gray-800">Certifications</h4>
-                <ul className="list-disc list-inside text-gray-700 text-sm space-y-1">
-                    <li>Certificate of Project Management for Contract Logistics Projects (Schenker AG, 2016)</li>
-                    <li>Certificate of Train the Trainer (DB Schenker, 2017)</li>
-                    <li>Certificate of IATA CASS Training Workshop (IATA, 2018)</li>
-                    <li>Certificate of Negotiation Skill and Dealing with Difficult People (Ceva Logistics / G&H, 2019)</li>
-                    <li>Certificate of Cargo Introduction - Initial (TCS, 2020)</li>
-                </ul>
-             </motion.div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section>
-          <SectionTitle title="Contact" />
-          <ContactInfo />
-        </section>
-      </div>
-    </motion.div>
+      ))}
+    </div>
   );
 };
 
-export default ProfessionalProfilePage;
+const ProjectExperience = () => {
+  const projects = [
+    {
+      title: "Cosmetics Distribution Warehouse Development",
+      description: `
+        - Collaborated with warehouse suppliers to successfully establish a dedicated distribution warehouse for a major cosmetics client.
+        - Managed logistics operations to ensure seamless distribution to retail stores across Vietnam.
+      `,
+    },
+    {
+      title: "Garment Bonded & Non-Bonded Warehouse Establishment",
+      description: `
+        - Led the establishment of a 5,000 sqm bonded and non-bonded warehouse for a garment client, encompassing both raw materials and finished goods.
+        - Oversaw end-to-end operations, ensuring efficient handling, storage, and distribution.
+      `,
+    },
+    {
+      title: "FMS System Implementation & Transition",
+      description: `
+        - Participated in the transition from the old Freight Management System (FMS) to a new system, collaborating closely with the Regional team to ensure alignment with regional standards while customizing the system to meet the specific operational requirements of the local office.
+      `,
+    },
+  ];
+
+  return (
+    <div className="my-10">
+      <h2 className="text-2xl font-bold mb-6 text-blue-900 flex items-center">
+        <Folder className="mr-2 h-6 w-6" />
+        Project Experience
+      </h2>
+      {projects.map((project, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: index * 0.1 }}
+          className="mb-8 p-6 bg-white rounded-2xl shadow-md border border-white/10"
+        >
+          <h3 className="text-xl font-semibold text-blue-900">{project.title}</h3>
+          <p className="mt-4 text-base text-gray-700 whitespace-pre-line">
+            {project.description}
+          </p>
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
+const Education = () => {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3}}
+            className="mb-8 p-6 bg-white rounded-2xl shadow-md border border-white/10"
+        >
+            <h2 className="text-2xl font-bold mb-6 text-blue-900 flex items-center">
+                <GraduationCap className="mr-2 h-6 w-6" />
+                Education
+            </h2>
+            <h3 className="text-xl font-semibold text-blue-900">Bachelor of Economics of Sea Transport</h3>
+            <p className="text-sm text-blue-900">2002 - 2005 | Hochiminh City University of Transport</p>
+            <ul className="list-disc list-inside mt-4 space-y-2">
+                <li>2016 - Certificate of Project Management for Contract Logistics Projects (Schenker AG)</li>
+                <li>2017 - Certificate of Train the Trainer (DB Schenker)</li>
+                <li>2018 - Certificate of IATA CASS Training Workshop (IATA)</li>
+                <li>2019 - Certificate of Negotiation Skill and Dealing with Difficult People (Ceva Logistics / G&H)</li>
+                <li>2020 - Certificate of Cargo Introduction – Initial (TCS)</li>
+            </ul>
+        </motion.div>
+    )
+}
+
+const ProfessionalCareerPage = () => {
+  return (
+    <div className="min-h-screen bg-gray-200 text-gray-800 p-8">
+      <div className="max-w-4xl mx-auto space-y-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <h1 className="text-4xl font-bold mb-4 text-blue-900">Nguyen Song Quynh Vi</h1>
+          <p className="text-xl text-gray-700">Logistics & Freight Forwarding Professional</p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-lg text-gray-600"
+        >
+          <p>Experienced logistics leader with 20+ years specializing in operations, pricing strategy, and procurement. Proven track record in managing end-to-end freight forwarding processes, optimizing vendor relationships, and developing cost-effective solutions. Expertise in streamlining operations, enhancing efficiency, and ensuring strategic pricing. Passionate about driving operational improvements and contributing to the success of global supply chains.</p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <Card className="shadow-lg">
+              <CardContent className="space-y-4">
+                <h2 className="text-2xl font-bold flex items-center text-blue-900">
+                  <Tag className="mr-2 h-6 w-6"/>
+                  Contact Information
+                </h2>
+                <div className="text-gray-700">
+                  <p className="flex items-center">
+                    <Mail className="mr-2 h-4 w-4" />
+                    Email:
+                    <a href="mailto:vinguyensong@gmail.com" className="text-blue-500 hover:underline">
+                      vinguuyensong@gmail.com
+                    </a>
+                  </p>
+                  <p className="flex items-center">
+                    <Phone className="mr-2 h-4 w-4" /> Phone: +84 919794991
+                  </p>
+                  <p className="flex items-center">
+                    <span className="mr-2">Location:</span> Ho Chi Minh City, Vietnam
+                  </p>
+                  <p className="flex items-center">
+                    <Linkedin className="mr-2 h-4 w-4" />
+                    LinkedIn:
+                    <a
+                      href="https://www.linkedin.com/in/vi-nguyen-055051106"
+                      className="text-blue-500 hover:underline"
+                    >
+                      www.linkedin.com/in/vi-nguyen-055051106
+                    </a>
+                  </p>
+                </div>
+                
+              </CardContent>
+            </Card>
+            <Education/>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <Card className="shadow-lg">
+              <CardContent className="space-y-4">
+                <h2 className="text-2xl font-bold flex items-center text-blue-900">
+                  <Briefcase className="mr-2 h-6 w-6"/>
+                  Core Competences
+                </h2>
+                <ul className="list-disc ml-5 text-gray-700 space-y-2">
+                  <li>International Freight Operations (Air, FCL, LCL, Customs)</li>
+                  <li>Contract Logistics & Distribution</li>
+                  <li>SOP Design & Implementation</li>
+                  <li>Vendor Management & Procurement</li>
+                  <li>Pricing Strategy & Tender Management</li>
+                  <li>Customer Success & Relationship Management</li>
+                  <li>Team Leadership & Staff Training</li>
+                  <li>Strategic Planning & Business Development</li>
+                  <li>Cross-functional Collaboration</li>
+                  <li>Problem-solving & Negotiation</li>
+                  <li>Platform Development (UI/UX, Coding, Marketing)</li>
+                  <li>Process Improvement & Innovation</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+
+        <ProfessionalExperience />
+        <ProjectExperience />
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+          className="flex justify-center"
+        >
+          <Button
+            className={cn(
+              "bg-blue-500 text-white hover:bg-blue-600 px-8 py-3 rounded-full",
+              "transition-colors duration-300 shadow-lg hover:shadow-xl",
+              "font-semibold text-lg text-white"
+            )}
+          >
+            Download CV
+          </Button>
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+export default ProfessionalCareerPage;
+
