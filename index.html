@@ -10,7 +10,8 @@ import {
     Phone,
     Tag,
     Folder,
-    GraduationCap
+    GraduationCap,
+    MapPin // Import biểu tượng địa điểm
 } from "lucide-react";
 import { cn } from '@/lib/utils'; // Giả sử tiện ích này có sẵn
 
@@ -252,21 +253,20 @@ const ProfessionalCareerPage = () => {
                                 <div className="text-gray-700">
                                     <p className="flex items-center">
                                         <Mail className="mr-2 h-4 w-4" />
-                                        Email:
-                                        <a href="mailto:vinguyensong@gmail.com" className="text-blue-500 hover:underline">
-                                            vinguuyensong@gmail.com
+                                         <a href="mailto:vinguyensong@gmail.com" className="text-blue-500 hover:underline">
+                                            vinguyensong@gmail.com
                                         </a>
                                     </p>
                                     <p className="flex items-center">
-                                        <Phone className="mr-2 h-4 w-4" /> Phone: +84 919794991
+                                        <Phone className="mr-2 h-4 w-4" /> +84 919794991
                                     </p>
                                     <p className="flex items-center">
-                                        <span className="mr-2">Location:</span> Ho Chi Minh City, Vietnam
+                                        <MapPin className="mr-2 h-4 w-4" />
+                                        Ho Chi Minh City, Vietnam
                                     </p>
                                     <p className="flex items-center">
                                         <Linkedin className="mr-2 h-4 w-4" />
-                                        LinkedIn:
-                                        <a
+                                         <a
                                             href="https://www.linkedin.com/in/vi-nguyen-055051106"
                                             className="text-blue-500 hover:underline"
                                         >
@@ -335,3 +335,4 @@ const ProfessionalCareerPage = () => {
 };
 
 export default ProfessionalCareerPage;
+
