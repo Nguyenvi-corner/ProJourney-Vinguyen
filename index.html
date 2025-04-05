@@ -1,338 +1,363 @@
-import React from 'react';
-import { Card, CardContent } from '@/components/ui/card'; // Giả sử các thành phần này có sẵn
-import { Button } from '@/components/ui/button'; // Giả sử các thành phần này có sẵn
-import { motion } from 'framer-motion';
-import {
-    Briefcase,
-    Book,
-    Linkedin,
-    Mail,
-    Phone,
-    Tag,
-    Folder,
-    GraduationCap,
-    MapPin // Import biểu tượng địa điểm
-} from "lucide-react";
-import { cn } from '@/lib/utils'; // Giả sử tiện ích này có sẵn
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Màu nền nhạt hơn */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px; /* Rộng hơn */
+            margin: 2rem auto; /* Khoảng cách trên dưới */
+            padding: 0; /* Loại bỏ padding */
+            background-color: transparent; /* Trong suốt */
+            border-radius: 1rem;
+            box-shadow: none; /* Loại bỏ bóng đổ */
+        }
+        section {
+            margin-bottom: 2rem; /* Khoảng cách giữa các phần */
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.8); /* Nền trắng nhẹ */
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Bóng đổ nhẹ hơn */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        h1 {
+            color: #4f46e5;
+            font-size: 3rem; /* Lớn hơn */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center; /* Căn giữa */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            color: #6b7280;
+            font-size: 2.25rem; /* Lớn hơn */
+            font-weight: 600;
+            margin-bottom: 1.5rem; /* Khoảng cách lớn hơn */
+            text-align: center; /* Căn giữa */
+        }
+        h3 {
+            color: #374151;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        p {
+            color: #4b5563;
+            font-size: 1.1rem;
+            line-height: 1.7; /* Khoảng cách dòng */
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1rem;
+        }
+        li {
+            color: #4b5563;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 0.5rem; /* Khoảng cách giữa các mục */
+        }
+        .intro-section {
+            text-align: center; /* Căn giữa phần giới thiệu */
+        }
+        .intro-section p {
+            text-align: center;
+        }
+        .summary-section {
+            background-color: rgba(247, 250, 252, 0.7); /* Màu nền nhạt hơn */
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        .skills-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem; /* Khoảng cách giữa các kỹ năng */
+            margin-bottom: 2rem;
+        }
+        .skill-item {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem; /* Padding lớn hơn */
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.03), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(5px);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .skill-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 8px -2px rgba(0, 0, 0, 0.15), 0 3px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        .experience-section {
+            margin-bottom: 2rem;
+        }
+        .work-experience {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: rgba(240, 253, 245, 0.5);
+            border-radius: 0.75rem;
+            border-left: 4px solid #a7f3d0; /* Màu nhấn */
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(5px);
+        }
+        .work-experience h3 {
+            color: #16a34a;
+            font-size: 1.5rem; /* Lớn hơn */
+            margin-bottom: 0.75rem;
+        }
+        .work-experience p {
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .work-experience ul {
+            list-style: disc;
+            padding-left: 2rem;
+        }
+        .work-experience li {
+            color: #4b5563;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
+        }
+        .education-section {
+            margin-bottom: 2rem;
+        }
+        .education-block {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: rgba(252, 211, 77, 0.1);
+            border-radius: 0.75rem;
+            border-left: 4px solid #fcd34d;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(5px);
+        }
+        .education-block h3 {
+            color: #d97706;
+            font-size: 1.5rem; /* Lớn hơn */
+            margin-bottom: 0.75rem;
+        }
+        .education-block p {
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .projects-section {
+            margin-bottom: 2rem;
+        }
+        .project-item {
+            background-color: rgba(247, 250, 252, 0.8);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        .project-item h3 {
+            color: #4f46e5;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .project-item p {
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+        .project-item ul {
+            list-style: disc;
+            padding-left: 2rem;
+        }
+        .project-item li {
+            color: #4b5563;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
+        }
 
-const experiences = [
-    {
-        title: <span className="text-blue-900 font-semibold">🚀 Cofast Network</span>,
-        position: 'Customer Success Executive',
-        duration: 'May 2024 – Present',
-        description: `- Managed end-to-end customer success operations, ensuring high levels of satisfaction and process improvement.
-    - Collaborated with cross-functional teams to enhance customer experience and streamline operational processes.
-    - Designed and implemented SOPs to standardize processes across international logistics services.
-    - Contributed to building Cofast Platform by working on platform moderation, UI/UX design, coding, and marketing.`
-    },
-    {
-        title: <span className="text-blue-900 font-semibold">Freightzen Logistics Vietnam Limited</span>,
-        position: 'Operation Manager',
-        duration: 'Dec, 2021 - May, 2024',
-        description: `<span class="font-bold">Operations Management:</span>
-    - Oversee and manage day-to-day freight forwarding operations for both air and ocean shipments, covering import, export, and cross-trade.
-    - Develop and implement SOPs to enhance operational efficiency and quality.
-    - Monitor and optimize workflows to ensure timely and accurate shipment processing.
-    - Manage vendor relationships, including carriers, shipping lines, and other third-party providers, to negotiate optimal rates and service agreements.
-    - Supervise the documentation process, ensuring all paperwork complies with local and international trade regulations.
-    
-    <span class="font-bold">Customer Service Excellence:</span>
-    - Act as the primary escalation point for customer inquiries, issues, and complaints, providing swift resolutions to maintain client satisfaction.
-    - Lead the customer service team to deliver exceptional service, ensuring all inquiries and requests are handled professionally and promptly.
-    - Build and maintain strong client relationships, providing regular updates and proactively addressing client needs.
-    
-    <span class="font-bold">Team Leadership and Development:</span>
-    - Recruit, train, and mentor operations and customer service staff to build a high-performing team.
-    - Set performance targets and KPIs, conducting evaluations to ensure objectives are met.
-    
-    <span class="font-bold">Strategic Contribution:</span>
-    - Collaborate with senior management to develop and execute strategic plans for operational improvements and business expansion.
-    - Identify opportunities to enhance service offerings, improve operational efficiency, and maximize profitability.`
-    },
-    {
-        title: <span className="text-blue-900 font-semibold">Ceva Logistics Vietnam Co., Ltd</span>,
-        position: 'Tender & Pricing Management',
-        duration: 'Jul, 2019 - May, 2021',
-        description: `<span class="font-bold">Air & Ocean Tender Management:</span>
-    - Analyze and manage bids, working together with all stakeholders in the process to prepare, finalize and deliver within required timescales.
-    - Engage Products, country and Global bid teams, ensuring all customer requirements adherence and complience with the internal bid processes set up.
-    - Ensure Global/Regions strategic approach to all bids are aligned.
-    - Work along the consultants team to gather intelligence and research all necessary information that can be instrumental to bid success.
-    - Track all bids progress through the pipeline cycle from receipt of RFIs/RFQs to win/loss of bids.
-    - To support impelentation team during implementation phase in order to ensure satisfactory delivery of rate agreements.
-    <span class="font-bold">Pricing Management:</span>
-    - To be primary contact point for all overseas quotation request.
-    - To keep follow up with oversea pricing desk and/or BD to update quotation status and customers respond.
-    - To analyze all quotation requests to pridict the customer’s need trend.`
-    },
-    {
-        title: <span className="text-blue-900 font-semibold">DB Schenker Vietnam Co., Ltd</span>,
-        position: 'Assistant to Director Airfreight Vietnam',
-        duration: 'Apr, 2016 - Jun, 2019',
-        description: `• Assist Head of Airfreight in implementing the activities assigned within the organization.
-    • Give support in all meetings as required.
-    • Retrieve information and feedback needed from the department.
-    • The key contact for all matters related to IATA.
-    • Communicate with department managers for preparing report on daily, weekly, monthly basic.`
-    },
-    {
-        title: <span className="text-blue-900 font-semibold">UTi Worldwide Viet Nam Co., Ltd</span>,
-        position: 'Key Account Manager',
-        duration: 'Apr, 2011 - Mar, 2016',
-        description: `<span class="font-bold">Account Development:</span>
-    - Develop comprehensive strategies to expand services within accounts.
-    - Collaborate with customers to understand their needs and create custom solutions.
-    - Identify key influencers and build trusted advisor relationships with decision-makers.
-    - Analyze client business operations, identify growth opportunities, and develop account strategies.
-    - Maximize cross-selling opportunities and communicate account plans and forecasts to management.
-    - Follow the company’s solution selling process to drive revenue and profitability.
-    <span class="font-bold">Account Management:</span>
-    - Own all aspects of account relationships, acting as the primary point of contact.
-    - Proactively assess business changes and their impact on the company.
-    - Identify risks and develop mitigation plans, escalating unresolved issues as needed.
-    - Work closely with Operations teams to ensure high-quality service delivery.
-    - Manage KPIs through regular business reviews and implement corrective actions for service failures.
-    - Develop and maintain strong client relationships, identifying opportunities for further business growth.
-    <span class="font-bold">Team Management:</span>
-    - Lead and coordinate Operations teams (Airfreight, Ocean Freight, Trade Services) and third-party vendors to meet KPIs.
-    - Provide clear direction, resolve issues, and motivate teams to deliver exceptional service.
-    - Oversee dry runs, clarify SOPs, and assist in the escalation of unresolved issues.
-    - Support team performance by monitoring progress, reviewing trends, and preparing for surges.`
-    },
-    {
-        title: <span className="text-blue-900 font-semibold">UTi Worldwide Viet Nam Co., Ltd</span>,
-        position: 'Sea Freight Coordinator',
-        duration: 'Nov, 2007 - Mar, 2011',
-        description: `
-    - Handle shipments and booking request from nominated & free hand customers.
-    - Follow shipping instructions from sales department, destinations & customers
-    - Liaise with contracted carriers for smooth handling of export cargo
-    - Liaise with sup-contractor for doing customs clearance.
-    - Follow the working instructions & SOP to fulfill their job properly
-    - Coordinate with oversea for smoothly handle shipment.
-    - Satisfy customers, do daily work with highest performance, respect and match company KPI of Debit.
-    - Resolve, Report, Record complaints in professional manner.
-    Additional tasks:
-    - Contacting carrier to have non-contracted rate.
-    - Responsible for:Quoting to network / Tender (medium) / RFQ and ad-hoc quote for sale.`
-    }
-];
+        /* Thêm hiệu ứng đặc biệt (ví dụ: gradient chuyển động) */
+        body {
+            background: linear-gradient(45deg, #f0f2ff, #e0e7ff, #d1d8f3);
+            background-size: 300% 300%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .container:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 16px -4px rgba(0, 0, 0, 0.2), 0 8px 8px -4px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
 
-const ProfessionalExperience = () => {
-    return (
-        <div className="my-10">
-            <h2 className="text-2xl font-bold mb-6 text-blue-900 flex items-center">
-                <Briefcase className="mr-2 h-6 w-6" />
-                Professional Experience
-            </h2>
-            {experiences.map((experience, index) => (
-                <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className="mb-8 p-6 bg-white rounded-2xl shadow-md border border-white/10"
-                >
-                    <h3 className="text-xl font-semibold text-blue-900">{experience.title}</h3>
-                    <p className="text-sm text-blue-900">{experience.position} | {experience.duration}</p>
-                    <p className="mt-4 text-base text-gray-700 whitespace-pre-line" dangerouslySetInnerHTML={{ __html: experience.description }}></p>
-                </motion.div>
-            ))}
-        </div>
-    );
-};
+        /* Стиль для значков Font Awesome */
+        .intro-section i,
+        .work-experience i,
+        .education-section i,
+        .project-item i {
+            margin-right: 0.5rem; /* Khoảng cách bên phải biểu tượng */
+            color: #777; /* Màu biểu tượng */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <section class="intro-section">
+            <h1 class="text-3xl font-semibold text-blue-600 mb-4">Nguyen Song quynh vi</h1>
+            <p class="text-gray-700 flex items-center justify-center mb-2"><i class="fas fa-envelope"></i> vinguyensong@gmail.com</p>
+            <p class="text-gray-700 flex items-center justify-center mb-2"><i class="fas fa-phone-alt"></i> <a href="https://zalo.me/0919794991" class="text-blue-500 hover:underline">0919794991 (Zalo)</a></p>
+            <p class="text-gray-700 flex items-center justify-center mb-2"><i class="fas fa-map-marker-alt"></i> Hochiminh city, Vietnam</p>
+            <p class="text-gray-700 flex items-center justify-center mb-2"><i class="fab fa-linkedin"></i> <a href="www.linkedin.com/in/vi-nguyen-055051106" class="text-blue-500 hover:underline">www.linkedin.com/in/vi-nguyen-055051106</a></p>
+        </section>
 
-const ProjectExperience = () => {
-    const projects = [
-        {
-            title: "Cosmetics Distribution Warehouse Development",
-            description: `
-        - Collaborated with warehouse suppliers to successfully establish a dedicated distribution warehouse for a major cosmetics client.
-        - Managed logistics operations to ensure seamless distribution to retail stores across Vietnam.
-      `,
-        },
-        {
-            title: "Garment Bonded & Non-Bonded Warehouse Establishment",
-            description: `
-        - Led the establishment of a 5,000 sqm bonded and non-bonded warehouse for a garment client, encompassing both raw materials and finished goods.
-        - Oversaw end-to-end operations, ensuring efficient handling, storage, and distribution.
-      `,
-        },
-        {
-            title: "FMS System Implementation & Transition",
-            description: `
-        - Participated in the transition from the old Freight Management System (FMS) to a new system, collaborating closely with the Regional team to ensure alignment with regional standards while customizing the system to meet the specific operational requirements of the local office.
-      `,
-        },
-    ];
+        <section class="summary-section">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Professional Summary</h2>
+            <p class="text-gray-700">
+                Experienced logistics leader with 20+ years specializing in operations, pricing strategy, and procurement. Proven track record in managing end-to-end freight forwarding processes, optimizing vendor relationships, and developing cost-effective solutions. Expertise in streamlining operations, enhancing efficiency, and ensuring strategic pricing. Passionate about driving operational improvements and contributing to the success of global supply chains.
+            </p>
+        </section>
 
-    return (
-        <div className="my-10">
-            <h2 className="text-2xl font-bold mb-6 text-blue-900 flex items-center">
-                <Folder className="mr-2 h-6 w-6" />
-                Project Experience
-            </h2>
-            {projects.map((project, index) => (
-                <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className="mb-8 p-6 bg-white rounded-2xl shadow-md border border-white/10"
-                >
-                    <h3 className="text-xl font-semibold text-blue-900">{project.title}</h3>
-                    <p className="mt-4 text-base text-gray-700 whitespace-pre-line">
-                        {project.description}
-                    </p>
-                </motion.div>
-            ))}
-        </div>
-    );
-};
+        <section class="skills-section">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Core Competencies</h2>
+            <div class="skill-item">International Freight Operations</div>
+            <div class="skill-item">Contract Logistics & Distribution</div>
+            <div class="skill-item">SOP Design & Implementation</div>
+            <div class="skill-item">Vendor Management & Procurement</div>
+            <div class="skill-item">Pricing Strategy & Tender Management</div>
+            <div class="skill-item">Customer Success & Relationship Management</div>
+            <div class="skill-item">Team Leadership & Staff Training</div>
+            <div class="skill-item">Cross-functional Collaboration</div>
+        </section>
 
-const Education = () => {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="mb-8 p-6 bg-white rounded-2xl shadow-md border border-white/10"
-        >
-            <h2 className="text-2xl font-bold mb-6 text-blue-900 flex items-center">
-                <GraduationCap className="mr-2 h-6 w-6" />
-                Education
-            </h2>
-            <h3 className="text-xl font-semibold text-blue-900">Bachelor of Economics of Sea Transport</h3>
-            <p className="text-sm text-blue-900">2002 - 2005 | Hochiminh City University of Transport</p>
-            <ul className="list-disc list-inside mt-4 space-y-2">
-                <li>2016 - Certificate of Project Management for Contract Logistics Projects (Schenker AG)</li>
-                <li>2017 - Certificate of Train the Trainer (DB Schenker)</li>
-                <li>2018 - Certificate of IATA CASS Training Workshop (IATA)</li>
-                <li>2019 - Certificate of Negotiation Skill and Dealing with Difficult People (Ceva Logistics / G&H)</li>
-                <li>2020 - Certificate of Cargo Introduction – Initial (TCS)</li>
-            </ul>
-        </motion.div>
-    )
-}
-
-const ProfessionalCareerPage = () => {
-    return (
-        <div className="min-h-screen bg-gray-200 text-gray-800 p-8">
-            <div className="max-w-4xl mx-auto space-y-8">
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-center"
-                >
-                    <h1 className="text-4xl font-bold mb-4 text-blue-900">Nguyen Song Quynh Vi</h1>
-                    <p className="text-xl text-gray-700">Logistics & Freight Forwarding Professional</p>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="text-lg text-gray-600"
-                >
-                    <p>Experienced logistics leader with 20+ years specializing in operations, pricing strategy, and procurement. Proven track record in managing end-to-end freight forwarding processes, optimizing vendor relationships, and developing cost-effective solutions. Expertise in streamlining operations, enhancing efficiency, and ensuring strategic pricing. Passionate about driving operational improvements and contributing to the success of global supply chains.</p>
-                </motion.div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
-                    >
-                        <Card className="shadow-lg">
-                            <CardContent className="space-y-4">
-                                <h2 className="text-2xl font-bold flex items-center text-blue-900">
-                                    <Tag className="mr-2 h-6 w-6" />
-                                    Contact Information
-                                </h2>
-                                <div className="text-gray-700">
-                                    <p className="flex items-center">
-                                        <Mail className="mr-2 h-4 w-4" />
-                                         <a href="mailto:vinguyensong@gmail.com" className="text-blue-500 hover:underline">
-                                            vinguyensong@gmail.com
-                                        </a>
-                                    </p>
-                                    <p className="flex items-center">
-                                        <Phone className="mr-2 h-4 w-4" /> +84 919794991
-                                    </p>
-                                    <p className="flex items-center">
-                                        <MapPin className="mr-2 h-4 w-4" />
-                                        Ho Chi Minh City, Vietnam
-                                    </p>
-                                    <p className="flex items-center">
-                                        <Linkedin className="mr-2 h-4 w-4" />
-                                         <a
-                                            href="https://www.linkedin.com/in/vi-nguyen-055051106"
-                                            className="text-blue-500 hover:underline"
-                                        >
-                                            www.linkedin.com/in/vi-nguyen-055051106
-                                        </a>
-                                    </p>
-                                </div>
-
-                            </CardContent>
-                        </Card>
-                        <Education />
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.6 }}
-                    >
-                        <Card className="shadow-lg">
-                            <CardContent className="space-y-4">
-                                <h2 className="text-2xl font-bold flex items-center text-blue-900">
-                                    <Briefcase className="mr-2 h-6 w-6" />
-                                    Core Competences
-                                </h2>
-                                <ul className="list-disc ml-5 text-gray-700 space-y-2">
-                                    <li>International Freight Operations (Air, FCL, LCL, Customs)</li>
-                                    <li>Contract Logistics & Distribution</li>
-                                    <li>SOP Design & Implementation</li>
-                                    <li>Vendor Management & Procurement</li>
-                                    <li>Pricing Strategy & Tender Management</li>
-                                    <li>Customer Success & Relationship Management</li>
-                                    <li>Team Leadership & Staff Training</li>
-                                    <li>Strategic Planning & Business Development</li>
-                                    <li>Cross-functional Collaboration</li>
-                                    <li>Problem-solving & Negotiation</li>
-                                    <li>Platform Development (UI/UX, Coding, Marketing)</li>
-                                    <li>Process Improvement & Innovation</li>
-                                </ul>
-                            </CardContent>
-                        </Card>
-                    </motion.div>
-                </div>
-
-                <ProfessionalExperience />
-                <ProjectExperience />
-
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.8 }}
-                    className="flex justify-center"
-                >
-                    <Button
-                        className={cn(
-                            "bg-blue-500 text-white hover:bg-blue-600 px-8 py-3 rounded-full",
-                            "transition-colors duration-300 shadow-lg hover:shadow-xl",
-                            "font-semibold text-lg text-white"
-                        )}
-                    >
-                        Download CV
-                    </Button>
-                </motion.div>
+        <section class="experience-section">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Professional Experience</h2>
+            <div class="work-experience">
+                <h3 class="text-lg font-semibold text-gray-800">Cofast Network Co., Ltd</h3>
+                <p class="text-gray-600"><span class="font-semibold text-blue-600">Customer Success Executive</span> | May, 2024 - Present</p>
+                <ul class="list-disc list-inside space-y-1">
+                    <li class="text-gray-700">Managed end-to-end customer success operations, ensuring high levels of satisfaction and process improvement.</li>
+                    <li class="text-gray-700">Collaborated with cross-functional teams to enhance customer experience and streamline operational processes.</li>
+                    <li class="text-gray-700">Designed and implemented SOPs to standardize processes across international logistics services.</li>
+                    <li class="text-gray-700">Contributed to building Cofast Platform by working on platform moderation, UI/UX design, coding, and marketing.</li>
+                </ul>
             </div>
-        </div>
-    );
-};
+            <div class="work-experience">
+                <h3 class="text-lg font-semibold text-gray-800">Freightzen Logistics Vietnam Limited</h3>
+                <p class="text-gray-600"><span class="font-semibold text-blue-600">Operation Manager</span> | Dec, 2021 - May, 2024</p>
+                <ul class="list-disc list-inside space-y-1">
+                    <li class="text-gray-700"><b>Operations Management:</b></li>
+                    <li class="text-gray-700 ml-4">Oversee and manage day-to-day freight forwarding operations for both air and ocean shipments, covering import, export, and cross-trade.</li>
+                    <li class="text-gray-700 ml-4">Develop and implement Standard Operating Procedures (SOPs) to enhance operational efficiency and quality.</li>
+                    <li class="text-gray-700 ml-4">Monitor and optimize workflows to ensure timely and accurate shipment processing.</li>
+                    <li class="text-gray-700 ml-4">Manage vendor relationships, including carriers, shipping lines, and other third-party providers, to negotiate optimal rates and service agreements.</li>
+                    <li class="text-gray-700 ml-4">Supervise the documentation process, ensuring all paperwork complies with local and international trade regulations.</li>
+                    <li class="text-gray-700"><b>Customer Service Excellence:</b></li>
+                    <li class="text-gray-700 ml-4">Act as the primary escalation point for customer inquiries, issues, and complaints, providing swift resolutions to maintain client satisfaction.</li>
+                    <li class="text-gray-700 ml-4">Lead the customer service team to deliver exceptional service, ensuring all inquiries and requests are handled professionally and promptly.</li>
+                    <li class="text-gray-700 ml-4">Build and maintain strong client relationships, providing regular updates and proactively addressing client needs.</li>
+                    <li class="text-gray-700 ml-4">Conduct regular feedback sessions with customers to identify areas for improvement and implement corrective measures.</li>
+                    <li class="text-gray-700"><b>Team Leadership and Development:</b></li>
+                    <li class="text-gray-700 ml-4">Recruit, train, and mentor operations and customer service staff to build a high-performing team.</li>
+                    <li class="text-gray-700 ml-4">Set performance targets and Key Performance Indicators (KPIs) for team members, conducting regular evaluations to ensure objectives are met.</li>
+                    <li class="text-gray-700 ml-4">Foster a positive work environment that encourages collaboration, innovation, and continuous improvement.</li>
+                    <li class="text-gray-700"><b>Strategic Contribution:</b></li>
+                    <li class="text-gray-700 ml-4">Collaborate with senior management to develop and execute strategic plans for operational improvements and business expansion.</li>
+                    <li class="text-gray-700 ml-4">Identify opportunities to enhance service offerings, improve operational efficiency, and maximize profitability.</li>
+                </ul>
+            </div>
+            <div class="work-experience">
+                <h3 class="text-lg font-semibold text-gray-800">Ceva Logistics Vietnam Co., Ltd</h3>
+                <p class="text-gray-600"><span class="font-semibold text-blue-600">Tender & Pricing Management</span> | Jul, 2019 - May, 2021</p>
+                <ul class="list-disc list-inside space-y-1">
+                    <li class="text-gray-700"><b>Air & Ocean Tender Management:</b></li>
+                    <li class="text-gray-700 ml-4">Analyze and manage bids, working together with all stakeholders in the process to prepare, finalize and deliver within required timescales.</li>
+                    <li class="text-gray-700 ml-4">Engage Products, country and Global bid teams, ensuring all customer requirements adherence and complience with the internal bid processes set up.</li>
+                    <li class="text-gray-700 ml-4">Ensure Global/Regions strategic approach to all bids are aligned.</li>
+                    <li class="text-gray-700 ml-4">Work along the consultants team to gather intelligence and research all necessary information that can be instrumental to bid success.</li>
+                    <li class="text-gray-700 ml-4">Track all bids progress through the pipeline cycle from receipt of RFIs/RFQs to win/loss of bids.</li>
+                    <li class="text-gray-700 ml-4">To support impelentation team during implementation phase in order to ensure satisfactory delivery of rate agreements.</li>
+                    <li class="text-gray-700"><b>Pricing Management:</b></li>
+                    <li class="text-gray-700 ml-4">To be primary contact point for all overseas quotation request.</li>
+                    <li class="text-gray-700 ml-4">To keep follow up with oversea pricing desk and/or BD to update quotation status and customers respond.</li>
+                    <li class="text-gray-700 ml-4">To analyze all quotation requests to pridict the customer’s need trend.</li>
+                </ul>
+            </div>
+            <div class="work-experience">
+                <h3 class="text-lg font-semibold text-gray-800">DB Schenker Vietnam Co., Ltd</h3>
+                <p class="text-gray-600">Assistant to Director Airfreight Vietnam | Apr, 2016 - Jun, 2019</p>
+                <ul class="list-disc list-inside space-y-1">
+                    <li class="text-gray-700">Assist Head of Airfreight in implementing the activities assigned within the organization.</li>
+                    <li class="text-gray-700">Give support in all meetings as required.</li>
+                    <li class="text-gray-700">Retrieve information and feedback needed from the department.</li>
+                    <li class="text-gray-700">The key contact for all matters related to IATA.</li>
+                    <li class="text-gray-700">Communicate with department managers for preparing report on daily, weekly, monthly basis.</li>
+                </ul>
+            </div>
+            <div class="work-experience">
+                <h3 class="text-lg font-semibold text-gray-800">UTi Worldwide Viet Nam Co., Ltd</h3>
+                <p class="text-gray-600">Key Account Manager | Apr, 2011 - Mar, 2016</p>
+                <ul class="list-disc list-inside space-y-1">
+                    <li class="text-gray-700"><b>Account Development:</b></li>
+                    <li class="text-gray-700 ml-4">Develop comprehensive strategies to expand services within accounts.</li>
+                    <li class="text-gray-700 ml-4">Collaborate with customers to understand their needs and create custom solutions.</li>
+                    <li class="text-gray-700 ml-4">Identify key influencers and build trusted advisor relationships with decision-makers.</li>
+                    <li class="text-gray-700 ml-4">Analyze client business operations, identify growth opportunities, and develop account strategies.</li>
+                    <li class="text-gray-700 ml-4">Maximize cross-selling opportunities and communicate account plans and forecasts to management.</li>
+                    <li class="text-gray-700 ml-4">Follow the company’s solution selling process to drive revenue and profitability.</li>
+                    <li class="text-gray-700"><b>Account Management:</b></li>
+                    <li class="text-gray-700 ml-4">Own all aspects of account relationships, acting as the primary point of contact.</li>
+                    <li class="text-gray-700 ml-4">Proactively assess business changes and their impact on the company.</li>
+                    <li class="text-gray-700 ml-4">Identify risks and develop mitigation plans, escalating unresolved issues as needed.</li>
+                    <li class="text-gray-700 ml-4">Work closely with Operations teams to ensure high-quality service delivery.</li>
+                    <li class="text-gray-700 ml-4">Manage KPIs through regular business reviews and implement corrective actions for service failures.</li>
+                    <li class="text-gray-700 ml-4">Develop and maintain strong client relationships, identifying opportunities for further business growth.</li>
+                    <li class="text-gray-700"><b>Team Management:</b></li>
+                    <li class="text-gray-700 ml-4">Lead and coordinate Operations teams (Airfreight, Ocean Freight, Trade Services) and third-party vendors to meet KPIs.</li>
+                    <li class="text-gray-700 ml-4">Provide clear direction, resolve issues, and motivate teams to deliver exceptional service.</li>
+                    <li class="text-gray-700 ml-4">Oversee dry runs, clarify SOPs, and assist in the escalation of unresolved issues.</li>
+                    <li class="text-gray-700 ml-4">Support team performance by monitoring progress, reviewing trends, and preparing for surges.</li>
+                </ul>
+            </div>
+        </section>
 
-export default ProfessionalCareerPage;
-
+        <section class="projects-section">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Relevant Projects</h2>
+            <div class="project-item">
+                <h3 class="text-lg font-semibold text-blue-700">Project Name</h3>
+                <p class="text-gray-600">Brief description of the project.</p>
+                <p class="text-gray-700">Link to the project (if applicable): [Link](https://example.com)</p>
+                <ul class="list-disc list-inside space-y-1">
+                    <li class="text-gray-700">Key technologies used.</li>
+                    <li class="text-gray-700">Your role and contributions.</li>
+                    <li class="text-gray-700">Outcomes and impact.</li>
+                </ul>
+            </div>
+            <div class="project-item">
+                <h3 class="text-lg font-semibold text-blue-700">Another Project</h3>
+                <p class="text-gray-600">Short description.</p>
+                <p class="text-gray-700">Link: [Link](https://example.com)</p>
+                <ul class="list-disc list-inside space-y-1">
+                    <li class="text-gra
